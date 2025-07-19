@@ -31,8 +31,6 @@ import chat_friend
 is_friend_mode = False
 chat_history = []
 
-
-
 # Virtual-Key codes
 VK_MEDIA_PLAY_PAUSE = 0xB3
 VK_MEDIA_NEXT_TRACK = 0xB0
@@ -149,6 +147,14 @@ if __name__ == "__main__":
         
         if "who are you" in query or "what is your name" in query or "tell me about yourself" in query:
             speak("I am Leo, your personal desktop assistant. I can help you with tasks like opening apps, searching the web, playing music, taking screenshots, and much more. Just tell me what to do!")
+
+        elif "female voice" in query:
+            engine.setProperty('voice', voices[1].id)
+            speak("female voice activated...")
+
+        elif "male voice" in query:
+            engine.setProperty('voice', voices[0].id)
+            speak("male voice activated...")
         
         elif 'search on wikipedia' in query:  #wikipedia "Your topic" ------------------------------
             query = query.replace("wikipedia", "").strip()
@@ -204,6 +210,10 @@ if __name__ == "__main__":
             except Exception as e:
                 speak("I couldn't close the tab.")
                 print(f"[Error - close tab]: {e}")
+            
+        elif "reopen tab" in query or "reopen closed tab" in query: 
+            speak("Reopening the last closed tab.")
+            pyautogui.hotkey("ctrl", "shift", "t")
 
 
         elif 'search on google' in query:  # search on google "Your query"
